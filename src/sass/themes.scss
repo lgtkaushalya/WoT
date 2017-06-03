@@ -1,6 +1,6 @@
 $themes:
   'irontec'  #c33 #fff,
-  'material' #009688 #fff;
+  'material' #f88400 #fff;
 
 @each $theme in $themes {
   $name: nth($theme, 1);

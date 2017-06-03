@@ -10,17 +10,18 @@
     var vm = this;
     vm.database = setupFirebase();
     vm.messages = [];
+    JSON.parse(localStorage.getItem('chat-messages')).forEach(function(value) {
+	vm.messages.push({
+          'username': value.username,
+          'content': value.content
+        });
+    });
 
     var chats = vm.database.ref('/chats');
     chats.on('value', function(updatedChats) {
 	vm.messages.length = 0;
-	updatedChats.forEach(function(message) {
-	    var value = message.val();
-	    vm.messages.push({
-		'username': value.username,
-       		'content': value.content
-	    });
-	});
+	getMessageObjects(updatedChats);
+        localStorage.setItem('chat-messages', JSON.stringify(vm.messages));
 	$scope.$apply();	
     });
 
@@ -55,6 +56,16 @@
 
 	    firebase.initializeApp(config);
 	return firebase.database();
+    }
+
+    function getMessageObjects(updatedChats) {
+	updatedChats.forEach(function(message) {
+            var value = message.val();
+            vm.messages.push({
+                'username': value.username,
+                'content': value.content
+            });
+        });
     }
 
   }
