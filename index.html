@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
+
 <head>
   <meta charset="UTF-8">
   <title>
     AngularJS+Bootstrap Simple Chat Directive Sample
   </title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link
-    rel="stylesheet"
-    href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link
-    rel="stylesheet"
-    href="src/css/style.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="src/css/style.css">
 
-    <link
-    rel="stylesheet"
-    href="src/css/themes.css">
+  <link rel="stylesheet" href="src/css/themes.css">
 
-  <link
-    rel="stylesheet"
-    href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body ng-controller="Shell as vm">
 
-  <div class="chat-container" width="400px" height="400px">
-    <irontec-simple-chat
-        messages="vm.messages"
-        username="vm.username"
-        input-placeholder-text="You can write here"
-        submit-button-text="Send"
-        title="WoT"
-        theme="material"
-        submit-function="vm.syncMessage"
-        visible="true">
-    </irontec-simple-chat>
+<body ng-controller="Shell as vm" width="400px" height="400px">
+
+  <div class="container chat-window chat-th-material">
+    <div class="row" ng-if="!vm.loggedIn">
+      <div class="col-xs-12">
+        <div class="panel-heading chat-top-bar">
+          <h3 class="panel-title"><span class="fa fa-comment-o">  </span>  WoT</h3>
+        </div>
+        <div class="well">
+          <login-form submit-function="vm.login" login-status="vm.loginError"></login-form>
+        </div>
+      </div>
+
+    </div>
+
+    <div ng-if="vm.loggedIn" class="chat-container">
+      <irontec-simple-chat messages="vm.messages" username="vm.username" input-placeholder-text="You can write here" submit-button-text="Send"
+        title="WoT" theme="material" submit-function="vm.syncMessage" visible="true">
+      </irontec-simple-chat>
+    </div>
   </div>
-
 
   <script src="bower_components/lodash/dist/lodash.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
 
   <script src="src/scripts/index.js"></script>
+  <script src="src/scripts/services.js"></script>
   <script src="src/scripts/templates.js"></script>
-  
+
   <script src="firebase.js"></script>
   <script src="wot.js"></script>
 
 </body>
+
 </html>
