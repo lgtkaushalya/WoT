@@ -1,0 +1,16 @@
+html, body{
+  width: 400px;
+  height: 400px;
+}
+
+/*
+.my-custom-chat-theme > .chat-window{
+  float: right;
+}
+*/
+
+.chat-container {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}

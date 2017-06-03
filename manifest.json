@@ -7,8 +7,9 @@
 
   "browser_action": {
    "default_icon": "icon.png",
-   "default_popup": "popup.html"
+   "default_popup": "index.html"
   },
+  "content_security_policy": "script-src 'self' https://orange-wot.firebaseio.com https://s-usc1c-nss-112.firebaseio.com; object-src 'self'",
   "permissions": [
    "activeTab"
    ]
