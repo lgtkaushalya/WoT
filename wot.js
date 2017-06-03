@@ -60,11 +60,11 @@
 								if (response.data.error) {
 									vm.loginError = true;
 								} else {
-									if(response.data.login){
+									if (response.data.login) {
 										vm.loggedIn = true;
 										var user = response.data.user;
-										vm.username = user.userName;
-										vm.employeename = user.employeeName;										
+										vm.username = user.userName.charAt(0).toUpperCase() + user.userName.slice(1);;
+										vm.employeename = user.employeeName;
 									}
 								}
 							},
