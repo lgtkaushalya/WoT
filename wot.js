@@ -10,13 +10,16 @@
     var vm = this;
     vm.database = setupFirebase();
     vm.messages = [];
-    JSON.parse(localStorage.getItem('chat-messages')).forEach(function(value) {
-	vm.messages.push({
-          'username': value.username,
-          'content': value.content
-        });
-    });
+    var chatMessages = localStorage.getItem('chat-messages');
 
+    if (chatMessages != null) {
+        JSON.parse(localStorage.getItem('chat-messages') || []).forEach(function(value) {
+	    vm.messages.push({
+              'username': value.username,
+              'content': value.content
+            });
+        });
+    }
     var chats = vm.database.ref('/chats');
     chats.on('value', function(updatedChats) {
 	vm.messages.length = 0;
