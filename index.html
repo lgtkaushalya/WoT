@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body ng-controller="Shell as vm" width="400px" height="400px">
+<body ng-controller="Shell as vm" class="chat-container">
 
   <div class="container chat-window chat-th-material">
     <div class="row" ng-if="!vm.loggedIn">
@@ -32,7 +32,7 @@
 
     <div ng-if="vm.loggedIn" class="chat-container">
       <irontec-simple-chat messages="vm.messages" username="vm.username" input-placeholder-text="You can write here" submit-button-text="Send"
-        title="WoT" theme="material" submit-function="vm.syncMessage" visible="true">
+        title="WoT" theme="material" submit-function="vm.syncMessage" visible="true" employeename="vm.employeename">
       </irontec-simple-chat>
     </div>
   </div>

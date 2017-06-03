@@ -57,7 +57,16 @@
 						var token = response.data.access_token;
 						authFactory.userLogin(token, username, password).then(
 							function (response) {
-								console.log(response.data.error);
+								if (response.data.error) {
+									vm.loginError = true;
+								} else {
+									if(response.data.login){
+										vm.loggedIn = true;
+										var user = response.data.user;
+										vm.username = user.userName;
+										vm.employeename = user.employeeName;										
+									}
+								}
 							},
 							function (response) {
 								console.log(response.status);

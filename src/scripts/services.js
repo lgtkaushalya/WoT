@@ -17,13 +17,13 @@ angular.module('irontec.simpleChat')
 
         };
 
-        this.userLogin = function (token, n, p) {            
+        this.userLogin = function (token, n, p) {  
+            var xsrf = $.param({"username": n, "password": p});          
             return $http({
                 method: 'POST',
                 url: baseURL + 'api/v1/login',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token },
-                // data: "username="+ n+ "&password=" +p,
-                data: {"username" : n}
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token },                
+                data: xsrf
             });
         };
 
