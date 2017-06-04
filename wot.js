@@ -71,7 +71,7 @@
                                         vm.username = user.userName.charAt(0).toUpperCase() + user.userName.slice(1);
                                         vm.employeename = user.employeeName;
 										localStorage.setItem('wot-username', vm.username);
-										localStorage.setItem('wot-empname', vm.employeename);
+										localStorage.setItem('wot-empname', vm.employeename);										
                                     }
                                 }
                             },
