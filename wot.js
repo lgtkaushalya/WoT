@@ -11,15 +11,15 @@
         vm.database = setupFirebase();
         vm.messages = [];
         vm.loggedIn = false;
-		if (localStorage.getItem('wot-username')) {
-			vm.loggedIn = true;
-			vm.username = localStorage.getItem('wot-username');
-			vm.employeename = localStorage.getItem('wot-empname');
-		}
+        if (localStorage.getItem('wot-username')) {
+            vm.loggedIn = true;
+            vm.username = localStorage.getItem('wot-username');
+            vm.employeename = localStorage.getItem('wot-empname');
+        }
         vm.loginError = false;
         var chatMessages = localStorage.getItem('chat-messages');
 
-        var hashTable = {
+        vm.hashTable = {
             'HR': ['employee_1', 'employee_2'],
             'Account': ['employee_3', 'employee_2'],
             'Manager': ['employee_4', 'employee_1', 'employee_5'],
@@ -27,12 +27,10 @@
 
         if (chatMessages != null) {
             JSON.parse(localStorage.getItem('chat-messages') || []).forEach(function (value) {
-                vm.messages.push({
-                    'username': value.username,
-                    'content': value.content
-                });
+                vm.messages.push(value);
             });
         }
+
         var chats = vm.database.ref('/chats');
         chats.on('value', function (updatedChats) {
             vm.messages.length = 0;
@@ -41,23 +39,10 @@
             $scope.$apply();
         });
 
-        vm.username = 'Matt';
-
-        vm.sendMessage = function (message, username) {
-            if (message && message !== '' && username) {
-                vm.messages.push({
-                    'username': username,
-                    'content': message
-                });
-            }
-        };
-
         vm.syncMessage = function (message, username) {
+            var message = refactor(message, username);
             var chat = vm.database.ref('/chats').push();
-            chat.set({
-                'username': username,
-                'content': message
-            });
+            chat.set(message);
         };
 
         vm.login = function (username, password) {
@@ -76,8 +61,8 @@
                                         var user = response.data.user;
                                         vm.username = user.userName.charAt(0).toUpperCase() + user.userName.slice(1);
                                         vm.employeename = user.employeeName;
-										localStorage.setItem('wot-username', vm.username);
-										localStorage.setItem('wot-empname', vm.employeename);
+                                        localStorage.setItem('wot-username', vm.username);
+                                        localStorage.setItem('wot-empname', vm.employeename);
                                     }
                                 }
                             },
@@ -127,13 +112,12 @@
             this.oneToOne = $oneToOne;
         }
 
-        var message = function ($id, $receiver, $username, $content) {
+        var message = function ($id, $receiver, $username, $content, $timeStamp) {
             this.id = $id;
             this.receiver = $receiver;
             this.username = $username;
             this.content = $content;
             this.date = $timeStamp;
-
         }
 
         function refactor(msg, username) {
@@ -142,17 +126,17 @@
             }
             var temp = [];
             var keywords = msg.split("#");
-
             angular.forEach(keywords, function (value, key) {
+                debugger;
                 if (key != 0) {
-                    temp = temp.concat(hashTable[value]);
+                    temp = temp.concat((vm.hashTable[value]));
                 } else {
                     msg = value;
                 }
             });
 
             temp = arrayUnique(temp);
-            return new message('1', temp, username, msg);
+            return new message('1', temp, username, msg, "timestamp");
         }
 
         function arrayUnique(array) {
@@ -168,10 +152,20 @@
 
         function checkOwnership(messageObject) {
             var receiverList = messageObject.receiver;
-            if (messageObject.username === vm.username || (receiverList != undefined && receiverList.indexOf(vm.username) > -1)) {
+            if (messageObject.username.toLowerCase() === vm.username.toLowerCase() || (receiverList != undefined && receiverList.indexOf(vm.username.toLowerCase()) > -1)) {
                 return true;
             } else {
                 return false;
+            }
+        }
+
+        function pickRandomReceiver(receiverList) {
+            var length = receiverList.length;
+            if (length > 0) {
+                var randomVal = Math.floor((Math.random() * (length - 1)))
+                return [receiverList[randomVal]];
+            } else {
+                return [];
             }
         }
 
