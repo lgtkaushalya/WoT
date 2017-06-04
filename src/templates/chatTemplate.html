@@ -9,7 +9,7 @@
                     <h3 class="panel-title">{{vm.employeename}}</h3>                   
                 </div>
                 <div class="col-md-4 col-xs-4 window-actions" style="text-align: right;">
-                    <i class="fa fa-weixin" aria-hidden="true" ng-click="vm.startNewThread()"></i>
+                    <i class="fa fa-weixin" aria-hidden="true" ng-click="vm.newFunction()"></i>
                     <span class="fa" ng-class="vm.chatButtonClass" ng-click="vm.toggle()"></span>
                     <span class="fa fa-close" ng-click="vm.close()"></span>
                 </div>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-footer chat-bottom-bar">
+            <div class="panel-footer chat-bottom-bar" ng-if=vm.showTypingSection>
                 <form style="display:inherit" ng-submit="vm.submitFunction()">
                     <div class="input-group" >
                         <input type="text" class="form-control input-sm chat-input" placeholder="{{vm.inputPlaceholderText}}" ng-model="vm.writingMessage" />

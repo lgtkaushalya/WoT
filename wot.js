@@ -6,11 +6,12 @@
     angular.module('app').controller('Shell', Shell);
     Shell.$inject = ['$scope', 'authFactory'];
     function Shell($scope, authFactory) {
-
         var vm = this;
         vm.database = setupFirebase();
         vm.messages = [];
         vm.loggedIn = false;
+        vm.username = 'Matt';
+        vm.showTypingSection = true;
         if (localStorage.getItem('wot-username')) {
             vm.loggedIn = true;
             vm.username = localStorage.getItem('wot-username');
@@ -44,6 +45,11 @@
             var chat = vm.database.ref('/chats').push();
             chat.set(message);
         };
+
+        vm.initiateThread = function () {
+            vm.showTypingSection = true;
+            vm.threadId = vm.username + '_' + new Date().getTime();
+        }
 
         vm.login = function (username, password) {
             authFactory.getToken().then(
@@ -168,7 +174,5 @@
                 return [];
             }
         }
-
     }
-
 })();

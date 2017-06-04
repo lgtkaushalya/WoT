@@ -44,6 +44,8 @@
 				title: '@',
 				theme: '@',
 				submitFunction: '&',
+				newFunction: '&',
+				showTypingSection: '=',
 				visible: '=',
 				infiniteScroll: '&',
 				expandOnNew: '='
@@ -105,13 +107,21 @@
 		vm.writingMessage = '';
 		vm.panelStyle = { 'display': 'block' };
 		vm.chatButtonClass = 'fa-angle-double-down icon_minim';
+		vm.showTypingSection = $scope.showTypingSection;
 
 		vm.toggle = toggle;
 		vm.close = close;
 		vm.submitFunction = submitFunction;
+		vm.newFunction = newFunction;
 
 		function submitFunction() {
 			$scope.submitFunction()(vm.writingMessage, vm.username);
+			vm.writingMessage = '';
+			scrollToBottom();
+		}
+
+		function newFunction() {
+			$scope.newFunction()();
 			vm.writingMessage = '';
 			scrollToBottom();
 		}
@@ -122,6 +132,11 @@
 				$scope.$chatInput.focus();
 			}, 250);
 		});
+
+		$scope.$watch('showTypingSection', function () { // make sure scroll to bottom on visibility change w/ history items
+			vm.showTypingSection = $scope.showTypingSection;
+		});
+
 		$scope.$watch('messages.length', function () {
 			if (!$scope.historyLoading) scrollToBottom(); // don't scrollToBottom if just loading history
 			if ($scope.expandOnNew && vm.isHidden) {
