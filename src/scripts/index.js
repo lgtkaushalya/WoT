@@ -38,7 +38,7 @@
 				messages: '=',
 				username: '=',
 				employeename: '=',
-				myUserId: '=',
+				myuserid: '=',
 				inputPlaceholderText: '@',
 				submitButtonText: '@',
 				title: '@',
@@ -99,7 +99,7 @@
 		vm.messages = $scope.messages;
 		vm.username = $scope.username;
 		vm.employeename = $scope.employeename;
-		vm.myUserId = $scope.myUserId;
+		vm.myUserId = $scope.myuserid;
 		vm.inputPlaceholderText = $scope.inputPlaceholderText;
 		vm.submitButtonText = $scope.submitButtonText;
 		vm.title = $scope.title;
