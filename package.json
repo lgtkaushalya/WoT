@@ -1,0 +1,24 @@
+{
+  "name": "wot",
+  "version": "1.0.0",
+  "description": "This application is there to connect expert knowledge withing an Organization",
+  "main": "wot.js",
+  "dependencies": {
+    "gulp-angular-templatecache": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm install && bower install && gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lgtkaushalya/WoT.git"
+  },
+  "author": "WoT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lgtkaushalya/WoT/issues"
+  },
+  "homepage": "https://github.com/lgtkaushalya/WoT#readme"
+}
