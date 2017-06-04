@@ -11,6 +11,11 @@
         vm.database = setupFirebase();
         vm.messages = [];
         vm.loggedIn = false;
+		if (localStorage.getItem('wot-username')) {
+			vm.loggedIn = true;
+			vm.username = localStorage.getItem('wot-username');
+			vm.employeename = localStorage.getItem('wot-empname');
+		}
         vm.loginError = false;
         var chatMessages = localStorage.getItem('chat-messages');
 
@@ -64,8 +69,9 @@
                                         vm.loggedIn = true;
                                         var user = response.data.user;
                                         vm.username = user.userName.charAt(0).toUpperCase() + user.userName.slice(1);
-                                        ;
                                         vm.employeename = user.employeeName;
+										localStorage.setItem('wot-username', vm.username);
+										localStorage.setItem('wot-empname', vm.employeename);
                                     }
                                 }
                             },
