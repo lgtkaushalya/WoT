@@ -11,7 +11,7 @@
         vm.messages = [];
         vm.loggedIn = false;
         vm.username = 'Matt';
-        vm.showTypingSection = true;
+        vm.showTypingSection = false;
         if (localStorage.getItem('wot-username')) {
             vm.loggedIn = true;
             vm.username = localStorage.getItem('wot-username');
@@ -49,6 +49,8 @@
         vm.initiateThread = function () {
             vm.showTypingSection = true;
             vm.threadId = vm.username + '_' + new Date().getTime();
+			vm.messages.length = 0;
+			vm.messages = null;
         }
 
         vm.login = function (username, password) {
@@ -105,9 +107,9 @@
         function getMessageObjects(updatedChats) {
             updatedChats.forEach(function (message) {
                 var value = message.val();
-                //if (checkOwnership(value)) {
+                if (checkOwnership(value)) {
                     vm.messages.push(value);
-                //}
+                }
             });
         }
 
