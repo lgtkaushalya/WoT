@@ -11,6 +11,7 @@
         vm.database = setupFirebase();
         vm.messages = [];
         vm.loggedIn = false;
+		vm.username = 'Matt';
 		if (localStorage.getItem('wot-username')) {
 			vm.loggedIn = true;
 			vm.username = localStorage.getItem('wot-username');
@@ -40,9 +41,7 @@
             localStorage.setItem('chat-messages', JSON.stringify(vm.messages));
             $scope.$apply();
         });
-
-        vm.username = 'Matt';
-
+        
         vm.sendMessage = function (message, username) {
             if (message && message !== '' && username) {
                 vm.messages.push({
