@@ -19,6 +19,12 @@
         vm.loginError = false;
         var chatMessages = localStorage.getItem('chat-messages');
 
+        var hashTable = {
+            'HR': ['employee_1', 'employee_2'],
+            'Account': ['employee_3', 'employee_2'],
+            'Manager': ['employee_4', 'employee_1', 'employee_5'],
+        };
+
         if (chatMessages != null) {
             JSON.parse(localStorage.getItem('chat-messages') || []).forEach(function (value) {
                 vm.messages.push({
@@ -108,10 +114,9 @@
         function getMessageObjects(updatedChats) {
             updatedChats.forEach(function (message) {
                 var value = message.val();
-                vm.messages.push({
-                    'username': value.username,
-                    'content': value.content
-                });
+                if (checkOwnership(value)) {
+                    vm.messages.push(value);
+                }
             });
         }
 
@@ -129,6 +134,45 @@
             this.content = $content;
             this.date = $timeStamp;
 
+        }
+
+        function refactor(msg, username) {
+            if (msg.length <= 0) {
+                return null;
+            }
+            var temp = [];
+            var keywords = msg.split("#");
+
+            angular.forEach(keywords, function (value, key) {
+                if (key != 0) {
+                    temp = temp.concat(hashTable[value]);
+                } else {
+                    msg = value;
+                }
+            });
+
+            temp = arrayUnique(temp);
+            return new message('1', temp, username, msg);
+        }
+
+        function arrayUnique(array) {
+            var a = array.concat();
+            for (var i = 0; i < a.length; ++i) {
+                for (var j = i + 1; j < a.length; ++j) {
+                    if (a[i] === a[j])
+                        a.splice(j--, 1);
+                }
+            }
+            return a;
+        }
+
+        function checkOwnership(messageObject) {
+            var receiverList = messageObject.receiver;
+            if (messageObject.username === vm.username || (receiverList != undefined && receiverList.indexOf(vm.username) > -1)) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
     }
