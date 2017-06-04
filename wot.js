@@ -105,9 +105,9 @@
         function getMessageObjects(updatedChats) {
             updatedChats.forEach(function (message) {
                 var value = message.val();
-                if (checkOwnership(value)) {
+                //if (checkOwnership(value)) {
                     vm.messages.push(value);
-                }
+                //}
             });
         }
 

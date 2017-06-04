@@ -79,3 +79,13 @@
       text-align: right; }
     .chat-msg.chat-msg-sent time {
       float: right; }
+
+.hash-tags {
+  float: left;
+  padding-left: 20px;
+}
+
+.btn-primary , .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:focus:active {
+  background-color: #f88400;
+  border-color: #f88400;
+}

@@ -8,11 +8,13 @@
   </title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="src/css/style.css">
 
   <link rel="stylesheet" href="src/css/themes.css">
 
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body ng-controller="Shell as vm" class="chat-container">
@@ -32,13 +34,15 @@
 
     <div ng-if="vm.loggedIn" class="chat-container">
       <irontec-simple-chat messages="vm.messages" username="vm.username" input-placeholder-text="You can write here" submit-button-text="Send"
-        title="WoT" theme="material" submit-function="vm.syncMessage" new-function="vm.initiateThread" visible="true" employeename="vm.employeename" show-typing-section="vm.showTypingSection" myuserid="vm.username">
+        title="WoT" theme="material" submit-function="vm.syncMessage" new-function="vm.initiateThread" visible="true" employeename="vm.employeename" show-typing-section="vm.showTypingSection" myuserid="vm.username" hash-table="vm.hashTable">
+
       </irontec-simple-chat>
     </div>
   </div>
 
   <script src="bower_components/lodash/dist/lodash.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
 
   <script src="src/scripts/index.js"></script>

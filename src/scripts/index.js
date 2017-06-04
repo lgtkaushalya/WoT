@@ -48,7 +48,8 @@
 				showTypingSection: '=',
 				visible: '=',
 				infiniteScroll: '&',
-				expandOnNew: '='
+				expandOnNew: '=',
+                hashTable: '='
 			},
 			link: link,
 			controller: ChatCtrl,
@@ -114,6 +115,25 @@
 		vm.submitFunction = submitFunction;
 		vm.newFunction = newFunction;
 
+        vm.selectedHashTags = {};
+
+        vm.addHashTags = function() {
+            vm.writingMessage = vm.writingMessage.substring(0, vm.writingMessage.length -1);
+            for (var key in vm.selectedHashTags) {
+            	if (vm.selectedHashTags[key] == true) {
+
+					vm.writingMessage += '#' + key;
+            	}
+            }
+		}
+
+        $scope.$watch('vm.writingMessage', function () {
+            if (vm.writingMessage.substr(vm.writingMessage.length - 1) == '#') {
+                $('#myModal').modal('show');
+			}
+        });
+
+
 		function submitFunction() {
 			$scope.submitFunction()(vm.writingMessage, vm.username);
 			vm.writingMessage = '';
@@ -125,6 +145,10 @@
 			vm.writingMessage = '';
 			scrollToBottom();
 		}
+
+        $scope.$watch('hashTable', function () { // make sure scroll to bottom on visibility change w/ history items
+            vm.hashTable = $scope.hashTable;
+        });
 
 		$scope.$watch('visible', function () { // make sure scroll to bottom on visibility change w/ history items
 			scrollToBottom();
