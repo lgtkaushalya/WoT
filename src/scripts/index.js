@@ -140,8 +140,8 @@
 			scrollToBottom();
 		}
 
-		function newFunction() {
-			$scope.newFunction()();
+		function newFunction(threadId) {
+			$scope.newFunction()(threadId);
 			vm.writingMessage = '';
 			scrollToBottom();
 		}

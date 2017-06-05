@@ -9,7 +9,7 @@
    "default_icon": "icon.png",
    "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://hackathon-d2f81.firebaseio.com https://s-usc1c-nss-112.firebaseio.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://orange-wot.firebaseio.com https://s-usc1c-nss-112.firebaseio.com; object-src 'self'",
   "permissions": [
    "activeTab"
    ]
